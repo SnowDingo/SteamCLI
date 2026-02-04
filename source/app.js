@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import {Text,Box, Newline, useApp} from 'ink';
+import {Text,Box, Newline, useApp, useInput} from 'ink';
 import BigText from 'ink-big-text';
 import Spinner from 'ink-spinner';
 import TextInput from 'ink-text-input';
 import { Alert, MultiSelect, Select } from '@inkjs/ui';
-
 
 
 export default function App() {
@@ -12,14 +11,33 @@ export default function App() {
 	const {exit} = useApp();
 
 	const [option, setOption] = useState(100)
+	
+	// A textfield related stuff yay!
+	const [inputval, setInputValue] = useState("")
+
+
+	const UserInput = () => {
+		useInput((input, key) => {
+			if(input == 'x'){
+				if(option==2){
+					setOption(100)
+					setInputValue("")
+				}
+			}
+		})
+	}
+
 	return (
 		<Box flexDirection='column'>
+			<UserInput />
 			<Text color={"cyan"}><BigText colors={"red"} text='STEAM-CLI'></BigText></Text>
 			<Text>A cli app to use steam API</Text>
 		<Newline />
 
 		<Text color={'yellow'}>Please type in /help to see all the available commands</Text>
-		<Box>
+		<Newline />
+		{(option ==100)?<>
+			<Box>
 			<Select
 				options={[
 					{
@@ -40,6 +58,8 @@ export default function App() {
 					setOption(e)
 					if(e ==99){
 						exit();
+					}else if(e=1){
+						
 					}
 				}}
 
@@ -49,6 +69,22 @@ export default function App() {
 				
 			</Select>
 		</Box>
+		</>:<>
+				{option == 1?<>
+					<Text>Please enter the name of the game</Text>
+				</>:<>
+				{option ==2?<>
+
+					<Text color={"white"}>Please enter the user name. <Text color={"red"}>Note: This has to be public profile</Text> </Text>
+					<Box borderStyle={"round"} borderColor={"white"}>
+					<TextInput value={inputval}  onChange={(e) => {
+						setInputValue(e)
+					}} placeholder='Enter the Steam username'></TextInput>
+					</Box>
+				</>:<></>}
+				</>}
+		</> }
+		
 		{/* <Box>
 			{submitted?<Alert variant='success'>Created {previous}</Alert>:<></>}
 		</Box> */}
