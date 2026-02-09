@@ -1,4 +1,6 @@
 # Steam CLI
+
+![logo](/logo.png)
 A CLI app to interact with Steam from terminal.
 
 ## Install
