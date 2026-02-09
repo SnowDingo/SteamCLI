@@ -10,7 +10,9 @@ export default function App() {
 
 	const {exit} = useApp();
 
-	const [option, setOption] = useState(100)
+	const [option, setOption] = useState(101)
+
+	const [api, setAPI] = useState("")
 	
 	// A textfield related stuff yay!
 	const [inputval, setInputValue] = useState("")
@@ -24,6 +26,9 @@ export default function App() {
 					setInputValue("")
 				}
 			}
+			if(key.return && option == 101){
+				setOption(100)
+			}
 		})
 	}
 
@@ -36,7 +41,15 @@ export default function App() {
 
 		<Text color={'yellow'}>Please type in /help to see all the available commands</Text>
 		<Newline />
-		{(option ==100)?<>
+		{(option == 101)?<>
+			<Text color={"white"}>Please enter the Steam API key <Text color={"red"}>Note: You have to retype this in future uses</Text> </Text>
+					<Box borderStyle={"round"} borderColor={"white"}>
+					<TextInput value={api}  onChange={(e) => {
+						setAPI(e)
+					}} placeholder='Enter the Steam API key'></TextInput>
+					</Box>
+		</>:<>
+			{(option ==100)?<>
 			<Box>
 			<Select
 				options={[
@@ -71,7 +84,7 @@ export default function App() {
 		</Box>
 		</>:<>
 				{option == 1?<>
-					<Text>Please enter the name of the game</Text>
+					<Text>Please enter the name of the game {api} </Text>
 				</>:<>
 				{option ==2?<>
 
@@ -85,9 +98,6 @@ export default function App() {
 				</>}
 		</> }
 		
-		{/* <Box>
-			{submitted?<Alert variant='success'>Created {previous}</Alert>:<></>}
-		</Box> */}
-		</Box>
-	);
-}
+		</>}
+	</Box>
+	)}
