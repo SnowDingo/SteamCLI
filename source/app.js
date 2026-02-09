@@ -50,6 +50,9 @@ export default function App() {
 					</Box>
 		</>:<>
 			{(option ==100)?<>
+			<Text color={"redBright"}> Your steam API key: {api} </Text>
+				<Newline/>
+				<Newline />
 			<Box>
 			<Select
 				options={[
