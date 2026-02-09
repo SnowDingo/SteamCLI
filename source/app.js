@@ -24,6 +24,9 @@ export default function App() {
 				if(option==2){
 					setOption(100)
 					setInputValue("")
+				}else if(option==1){
+					setOption(100)
+					setInputValue("")
 				}
 			}
 			if(key.return && option == 101){
@@ -87,7 +90,12 @@ export default function App() {
 		</Box>
 		</>:<>
 				{option == 1?<>
-					<Text>Please enter the name of the game {api} </Text>
+					<Text>Please enter the name of the game </Text>
+					<Box borderStyle={"round"} borderColor={"white"}>
+					<TextInput value={inputval}  onChange={(e) => {
+						setInputValue(e)
+					}} placeholder='Enter the Steam game title'></TextInput>
+					</Box>
 				</>:<>
 				{option ==2?<>
 
