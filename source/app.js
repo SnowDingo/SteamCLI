@@ -96,19 +96,23 @@ export default function App() {
 		</Box>
 	) : (
 		(option == 200)?<>
-		<Box flexDirection='row' margin={2}>
+		<Box flexDirection='column' margin={2}>
 			<TerminalInfoProvider>
 				<Image
-				src={result.avatarfull}
-				width={184}
-				height={184}
+				src={result.avatarmedium}
+				width={64}
+				height={64}
 				alt='profile'
 				protocol='auto'
 				/>
 			</TerminalInfoProvider>
 			<Box flexDirection='column'>
 				<Text>{result.personaname}</Text>
-				<Text>{result.personastate}</Text>
+				{result.personastate == 1?
+				<Text color={"green"}>⏺Online</Text>:
+				<>{(result.personastate ==0) ?<Text color={"red"}>⏺Offline</Text>:<Text>AFK</Text>}</>
+				}
+				
 			</Box>
 			
 		</Box>
