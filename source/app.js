@@ -6,6 +6,7 @@ import TextInput from 'ink-text-input';
 import {Alert, MultiSelect, Select} from '@inkjs/ui';
 import Link from 'ink-link';
 import { fetchSteamID, getUserData } from './api';
+import Image, { TerminalInfoProvider } from 'ink-picture';
 
 // So here are some of the basic structure for this app
 // There is an useState variable called option that tracks the state
@@ -95,10 +96,21 @@ export default function App() {
 		</Box>
 	) : (
 		(option == 200)?<>
-		<Box>
-			<Text>{result.personaname}</Text>
-			<Text>{result.personastate}</Text>
-			<Text>Results!</Text>
+		<Box flexDirection='row' margin={2}>
+			<TerminalInfoProvider>
+				<Image
+				src={result.avatarfull}
+				width={184}
+				height={184}
+				alt='profile'
+				protocol='auto'
+				/>
+			</TerminalInfoProvider>
+			<Box flexDirection='column'>
+				<Text>{result.personaname}</Text>
+				<Text>{result.personastate}</Text>
+			</Box>
+			
 		</Box>
 		
 		</>:<>
