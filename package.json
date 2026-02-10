@@ -1,8 +1,9 @@
 {
-	"name": "steamcli",
+	"name": "@snowdingo/steamcli",
 	"version": "0.0.1",
 	"license": "MIT",
-	"bin": "dist/cli.js",
+	"bin": {
+		"steamcli": "dist/cli.js"},
 	"type": "module",
 	"engines": {
 		"node": ">=16"
