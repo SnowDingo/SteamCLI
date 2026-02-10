@@ -1,8 +1,8 @@
 
 // function to turn vanityURL into apikey meaning pretty much it is a function that is supposed to be called when we need to
 // convert username into an unique Steamid.
-async function fetchSteamID(apikey, vanityURL){
-    const url = `https://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key=${apiKey}&vanityurl=${vanity}`;
+export async function fetchSteamID(apikey, vanityURL){
+    const url = `https://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key=${apikey}&vanityurl=${vanityURL}`;
     const response = await fetch(url);
     // turn the fetched result into json format cause it will be much easier to manipulate the data
     const resultingjson = await response.json();
@@ -17,9 +17,9 @@ async function fetchSteamID(apikey, vanityURL){
 
 // function to fetch user's basic data
 
-async function getUserData(apikey, userid){
-    const url = `http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=${apikey}&steamids=${userid}`;
+export async function getUserData(apikey, userid){
+    const url = `https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=${apikey}&steamids=${userid}`;
     const response = await fetch(url);
-    const resultjson = response.json();
-    return resultjson.players[0]
+    const resultjson = await response.json();
+    return resultjson.response.players[0]
 }

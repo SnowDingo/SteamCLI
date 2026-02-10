@@ -5,6 +5,7 @@ import Spinner from 'ink-spinner';
 import TextInput from 'ink-text-input';
 import {Alert, MultiSelect, Select} from '@inkjs/ui';
 import Link from 'ink-link';
+import { fetchSteamID, getUserData } from './api';
 
 // So here are some of the basic structure for this app
 // There is an useState variable called option that tracks the state
@@ -28,14 +29,41 @@ export default function App() {
 	const [inputval, setInputValue] = useState('');
 
 	const [loading, setLoading] = useState(false);
+	const [error, setError] = useState("")
 
+	const [result, setResult] = useState()
 	// useEffect
-	useEffect(() => {
-		// if the user hasn't done all the required steps just go back
-		if (option != 105) {
+	useEffect(()=> {
+		if (option !== 105) {
 			return;
 		}
+		const runfunc = async() => {
+
+		try{
+			// if the user hasn't done all the required steps just go back
+		
 		setLoading(true);
+		const id = await fetchSteamID(api, inputval)
+		if(id==0){
+			setError("User not found!")
+			setOption(100);
+
+		}else{
+			const result = await getUserData(api,id)
+			if(result !=null){
+				setResult(result);
+				setOption(200)
+			}else{
+				setError("Couldn't fetch the user data")
+				setOption(100)
+			}
+		}
+	}finally{
+		setLoading(false)
+	}
+		}
+		runfunc();
+		
 	}, [option]);
 
 	const UserInput = () => {
@@ -57,6 +85,7 @@ export default function App() {
 				}
 			}
 		});
+		return null;
 	};
 
 	return loading ? (
@@ -65,13 +94,21 @@ export default function App() {
 			<Spinner />
 		</Box>
 	) : (
-		<>
+		(option == 200)?<>
+		<Box>
+			<Text>{result.personaname}</Text>
+			<Text>{result.personastate}</Text>
+			<Text>Results!</Text>
+		</Box>
+		
+		</>:<>
 			<Box flexDirection="column">
 				<UserInput />
 				<Text color={'cyan'}>
 					<BigText colors={'red'} text="STEAM-CLI"></BigText>
 				</Text>
 				<Text>A cli app to use steam API</Text>
+				<Text>{error}</Text>
 				<Newline />
 
 				<Text color={'yellow'}>
@@ -84,7 +121,7 @@ export default function App() {
 							Please enter the Steam API key{' '}
 							<Text color={'red'}>
 								Note: You have to retype this in future uses.
-								<br /> You can get your own Steam API Keys{' '}
+								<Newline /> You can get your own Steam API Keys{' '}
 								<Link url="https://steamcommunity.com/dev/apikey">
 									here
 								</Link>{' '}
@@ -92,6 +129,7 @@ export default function App() {
 						</Text>
 						<Box borderStyle={'round'} borderColor={'white'}>
 							<TextInput
+								mask='*'
 								value={api}
 								onChange={e => {
 									setAPI(e);
@@ -156,6 +194,5 @@ export default function App() {
 					</>
 				)}
 			</Box>
-		</>
-	);
-}
+		</>)}
+		
