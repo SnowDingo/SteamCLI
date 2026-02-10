@@ -107,7 +107,7 @@ export default function App() {
 				/>
 			</TerminalInfoProvider>
 			<Box flexDirection='column'>
-				<Text>{result.personaname}</Text>
+				<Text><Link url={result.profileurl}>{result.personaname}</Link></Text>
 				{result.personastate == 1?
 				<Text color={"green"}>⏺Online</Text>:
 				<>{(result.personastate ==0) ?<Text color={"red"}>⏺Offline</Text>:<Text>AFK</Text>}</>
