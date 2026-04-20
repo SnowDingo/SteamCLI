@@ -5,7 +5,7 @@ import Spinner from 'ink-spinner';
 import TextInput from 'ink-text-input';
 import {Alert, MultiSelect, Select} from '@inkjs/ui';
 import Link from 'ink-link';
-import { fetchSteamID, getUserData } from './api';
+import { fetchSteamID, getUserData } from './api.js';
 import Image, { TerminalInfoProvider } from 'ink-picture';
 
 // So here are some of the basic structure for this app
