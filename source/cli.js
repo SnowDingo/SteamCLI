@@ -35,7 +35,9 @@ if(!command || command == 'ui'){
 }else if (command=='help'){
 	cli.showHelp()
 }else if(command == 'auth'){
-	
+
+}else{
+	console.error("Unknown command. Please try again:");
 }
 
 
