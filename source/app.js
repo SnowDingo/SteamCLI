@@ -80,7 +80,10 @@ export default function App() {
 			}
 			if (key.return) {
 				if (option == 101) {
-					setOption(100);
+					if(api != ""){
+						setOption(100);
+					}
+					
 				} else if (option == 1) {
 					setOption(105);
 				}
