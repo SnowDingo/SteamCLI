@@ -7,18 +7,35 @@ import App from './app.js';
 const cli = meow(
 	`
 		Usage
-		  $ todo
+		  $ steamcli
 
 		Options
-			--name  Your name
-
+			--help Show the help instruction for SteamCLI
+			--ui   Open interactive UI
 		Examples
-		  $ todo --name=Jane
-		  Hello, Jane
+		  $ steamcli --ui
+		  Show the GUI
 	`,
 	{
 		importMeta: import.meta,
+		flags:{
+			auth: {
+			type:"boolean",
+			shortFlag:"a"
+			},
+		}
 	},
 );
 
-render(<App name={cli.flags.name} />);
+// First element goes to command, the second goes to arguments
+const [command,...args]=cli.input;
+
+if(!command || command == 'ui'){
+	render(<App name={cli.flags.name} />);
+}else if (command=='help'){
+	cli.showHelp()
+}else if(command == 'auth'){
+	
+}
+
+
